@@ -1,27 +1,743 @@
-# React + TypeScript + Vite
+# typescript 기본문법
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+타입(Type)이란?
+데이터를 읽고 쓰는 방식에 이름을 붙인 것입니다.
 
-Currently, two official plugins are available:
+`npm i`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+기본적으로 타스는 전역모듈이지만 로컬모듈로 변경해줄수있다.
+export 내보내기 방식으로 설정 가능하다
 
-## Expanding the ESLint configuration
+```jsx
+// 전역 모듈
+type 내타입 {}
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+export {};
+// 로컬 모듈
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## 기본타입(PrimitiveTypes).ts
+
+```jsx
+export {};
+// 로컬 모듈
+
+/**
+ * 타입(Type)이란?
+ * 데이터를 읽고 쓰는 방식에 이름을 붙인 것입니다.
+ * 언어에 타입이 있으면 컴퓨터의 지원을 더 많이 받을 수 있습니다.
+ * 타입스크립트의 기본 타입은 아래와 같습니다.
+ *
+ * number: 숫자 타입
+ * string: 문자열 타입
+ * boolean: 불리언 타입
+ * null: null 타입
+ * undefined: undefined 타입
+ * symbol: 심볼 타입
+ * bigint: 큰 정수 타입
+ */
+
+/**
+ * 0. 타입 추론
+ * 타입스크립트는 결과를 보고 원인을 파악하는 기능을 가지고 있습니다.
+ * 이것을 Type Inference(=추론)라고 합니다.
+ * 등호를 기준으로 왼쪽을 추론합니다.
+ * vscode를 비롯한 기타 IDE들이 이 기능을 적극적으로 지원합니다.
+ * 개발자는 CMD 키나 ctrl 키를 누른 상태로 변수 위에 마우스를 올려서 컴파일러가 추론한 결과물을 이용할 수 있습니다.
+ */
+
+let 등호를_기준으로_왼쪽을_추론하는_예 = 0;
+
+/**
+ * 1. 타입 어노테이션(Type Annotation)
+ * Annotation 은 힌트라는 뜻이다. 타스는 추론보다 힌트를 우선시한다
+ * 타입스크립트는 타입을 최선을 다 해서 추론하지만,
+ * 그것이 어려울 때는 사람이 개입을 해서 힌트를 주어야 합니다.
+ * 타입 어노테이션을 사용하면 타입스크립트 컴파일러에게 타입 힌트를 줄 수 있습니다.
+ * 변수나 함수 왼쪽에 : 를 붙여서 사용합니다.
+ */
+let 숫자에_타입어노테이션: number = 0;
+
+/**
+ * 2. number
+ * 자바스크립트에서 사용하는 모든 부동소숫점 값을 표현합니다.
+ * 문제) unknown 대신에 적절한 타입 어노테이션을 붙여서 컴파일러에게 힌트를 줘 보세요.
+ * IDE의 지원을 받으면 더 쉽게 입력할 수 있습니다.
+ */
+let 정수: number = 6;
+let 부동소숫점: number = 3.14;
+let 무한: number = Infinity;
+let nan: number = NaN;
+let 생성자함수숫자: number = new Number(0).valueOf();
+
+/**
+ * 3. string
+ * 자바스크립트에서 사용하는 모든 문자열 값을 표현합니다.
+ * 문제) unknown 대신에 적절한 타입 어노테이션을 붙여서 컴파일러에게 힌트를 줘 보세요.
+ * IDE의 지원을 받으면 더 쉽게 입력할 수 있습니다.
+ */
+let 작은따옴표문자열: string = "작은거";
+let 큰따옴표문자열: string = "큰거";
+let 템플릿문자열: string = `이건 ${큰따옴표문자열}.`;
+let 생성자함수문자열: string = new String("생성자함수").valueOf();
+
+/**
+ * 4. boolean
+ * 참(true) 과 거짓(false)을 표현합니다.
+ * 자바스크립트에서 사용했던 Falsy 와 Trusy를 대체합니다.
+ */
+
+/** 문제)
+ * unknown 대신에 적절한 타입 어노테이션을 붙여서 컴파일러에게 힌트를 줘 보세요.
+ * IDE의 지원을 받으면 더 쉽게 입력할 수 있습니다.
+ */
+let 참: boolean = true;
+let 거짓: boolean = false;
+```
+
+## 객체타입(ObjectTypes).ts
+
+```jsx
+export {};
+/**
+ * 타입스크립트의 객체 타입은 아래와 같습니다.
+ * 함수 타입과 클래스 타입은 따로 정리하겠습니다.
+ *
+ * object: 객체 타입 (원시 타입을 제외한 모든 값)
+ * array: 배열 타입
+ * tuple: 고정된 길이의 배열 타입
+ * enum: 열거형 타입
+ * function: 함수 타입
+ * class: 클래스 타입
+ */
+
+/**
+ * 0. 배열 타입
+ * 자바스크립트의 배열을 표현하는 타입입니다.
+ * 타입이름 뒤에 [](중괄호) 를 붙여서 사용합니다.
+ * /
+
+/** 문제)
+ * unknown 대신에 적절한 타입 어노테이션을 입력해 보세요.
+ * IDE의 지원을 받으면 더 쉽게 입력할 수 있습니다.
+ * 배열 타입을 적을땐 [] 를 같이 써준다.
+ */
+let 숫자배열: number[] = [1, 2, 3];
+let 문자열배열: string[] = ["1", "2", "3"];
+let 불리언배열: boolean[] = [true, false];
+
+/**
+ * 1. 튜플 타입
+ * 요소의 갯수와 자료형이 고정된 자료형입니다.
+ * 배열로서 각 인덱스마다 다른 타입의 값을 가지고 있는 배열을 뜻한다.
+ * 사용하는 방법은 배열과 같습니다.
+ * recoil 등 일부 라이브러리가 튜플을 매개변수로 사용합니다.
+ */
+
+/** 문제)
+ * unknown 대신에 적절한 타입 어노테이션을 입력해 보세요.
+ * IDE의 지원을 받으면 더 쉽게 입력할 수 있습니다.
+ * 순서와 갯수와 타입이 모두 정해져있다.
+ */
+let 튜플: [number, string, boolean] = [1, "1", true];
+튜플 = [1, "1", true, 0];
+튜플 = [1, "1", "true"];
+// 틀린것에 빨간 밑줄 그어줘서 거기 마우스 갖다대야한다
+
+/**
+ * 1. 객체 타입
+ * 자바스크립트의 객체를 표현하는 타입입니다.
+ * {}(대괄호) 안에 타입을 적어서 표현합니다.
+ * 객체를 선언하는 방식과 아주 닮았습니다.
+ */
+let 이름: { 성: string; 명: string } = { 성: "서", 명: "재원" };
+
+/** 문제)
+ * unknown 대신에 적절한 타입 어노테이션을 입력해 보세요.
+ * IDE의 지원을 받으면 더 쉽게 입력할 수 있습니다.
+ */
+
+// IDE 에 뜨는 타입 객체:{} 을 그대로 복붙해주면 된다
+let 주소: {
+  address1: string;
+  address2: string;
+} = {
+  address1: "서울시 영등포구",
+  address2: "선착장",
+};
+
+let 사용자: {
+  name: string;
+  age: number;
+  checked: boolean;
+  //   위 `let 주소` 의 타입의 타입까지 가져와줘야한다
+  address: {
+    address1: string;
+    address2: string;
+  };
+} = {
+  name: "홍길동",
+  age: 12,
+  checked: false,
+  address: 주소,
+};
+
+// 아래부터는 있다는것만 알아두기
+
+/**
+ * 2. 열거형 타입(enum)
+ * 숫자 집합과 문자 집합에 이름을 붙이는 타입입니다.
+ * 타입이지만 그 자체로 값이 되는 특이한 타입입니다.
+ * 다른 타입으로 대체할 수 있어서 실제로 사용하는 일이 드뭅니다.
+ */
+
+// 아래의 예는 0 부터 7사이의 수에 요일 이름을 붙이는 예입니다.
+enum 일주일 {
+  일,
+  월,
+  화,
+  수,
+  목,
+  금,
+  토,
+}
+// 위의 코드는 아래와 같습니다.
+enum 숫자붙은_일주일 {
+  일 = 0,
+  월 = 1,
+  화 = 2,
+  수 = 3,
+  목 = 4,
+  금 = 5,
+  토 = 6,
+}
+
+let 숫자요일: 숫자붙은_일주일 = 0;
+console.log(숫자요일); // 0
+
+// 문자열 집합에 이름을 붙일 수도 있습니다.
+enum 문자열붙은_일주일 {
+  일 = "일요일",
+  월 = "월요일",
+  화 = "화요일",
+  수 = "수요일",
+  목 = "목요일",
+  금 = "금요일",
+  토 = "토요일",
+}
+
+// 이렇게 사용할 수 있습니다.
+let 문자요일: 문자열붙은_일주일 = 문자열붙은_일주일.월;
+console.log(문자요일); // 월요일
+
+```
+
+## 인터페이스.ts
+
+```jsx
+export {};
+/**
+ * 인터페이스(interface)란?
+ * 타입스크립트에서 객체를 표현하기 위해 사용하는 약속입니다.
+ * 인터페이스를 사용하면 객체의 표현을 변수처럼 사용할 수 있습니다.
+ * 몇가지 편의기능을 가지고 있습니다.
+ */
+
+/**
+ * 인터페이스의 기본적인 사용법
+ * 인터페이스의 이름은 영문 대문자로 시작하는 것이 관례입니다.
+ */
+interface Address {
+  /**
+   * 인터페이스 속에서 데이터를 표현한 것 하나하나를 필드라고 부릅니다.
+   * 필드의 구분자로 콜론을 사용합니다.
+   */
+  address1: string;
+  /**
+   * 필드의 구분자로 콤마를 사용할 수도 있습니다.
+   * 콜론과 콤마 중에서 어느것을 사용해도 괜찮습니다.
+   * 줄을 구분했다면 생략해도 됩니다.
+   * 보통은 eslint와 prettier 조합으로 한 방식만 사용하도록 강제합니다.
+   */
+  address2: string;
+}
+
+/**
+ * 문제)
+ * 인터페이스는 객체를 표현할 수 있습니다.
+ * 변수에 유저 타입의 객체를 할당해 보세요.
+ */
+interface 유저1 {
+  id: string;
+  성: string;
+  명: string;
+}
+
+const 나: 유저1 = {
+  id: "문자",
+  성: "문자",
+  명: "문자",
+};
+
+/**
+ * 인터페이스는 extends 라는 키워드를 이용해서 상속을 할 수 있습니다.
+ */
+interface 사람2 {
+  키: number;
+}
+
+interface 유저 extends 사람2 {
+  id: string;
+  성: string;
+  명: string;
+}
+
+/**
+ * 인터페이스는 중복해서 선언할 수 있습니다.
+ * 이름이 같은 interface는 하나의 interface 로 취급이 된다.
+ */
+interface A {
+  a: string;
+}
+interface A {
+  b: number;
+}
+
+/**
+ * 문제)
+ * 아래의 변수를 초기화 해 보세요.
+ */
+const test: A = {
+  a: "특이하데이",
+  b: 12,
+};
+
+/**
+ * 문제)
+ * 전역변수 window.a 를 사용하려고 했지만 에러가 발생했습니다.
+ * 타입스크립트 컴파일러는 window.a 가 있는지 모릅니다.
+ * 인터페이스를 선언해서 window.a 가 있다는 사실을 알려주세요.
+ * 웹 페이지의 전역 인터페이스는 Window 입니다.
+ */
+
+// declare : 전역변수를 선언하겠다.(옛날문법 그냥 외우기)
+declare global {
+  interface Window {
+    a: any;
+  }
+}
+alert(window.a);
+// 실제 있는지 없는지 여부는 중요하지않다.
+
+// 인터페이스와 타입의 차이는 기능은 같고 표기만 다르다고 생각
+
+```
+
+## 타입(type).ts
+
+```jsx
+export {};
+/**
+ * 타입(type)이란?
+ * 타입스크립트에서 객체를 표현하기 위해 사용하는 약속입니다.
+ * 타입을 사용하면 객체의 표현을 변수처럼 사용할 수 있습니다.
+ */
+
+/**
+ *
+ * 타입은 중복해서 선언할 수 없습니다.
+ */
+type 타입은_중복선언_불가 = {};
+type 타입은_중복선언_불가 = {};
+
+/**
+ * 타입의 기본적인 사용법
+ * 타입의 이름은 영문 대문자로 시작하는 것이 관례입니다.
+ */
+
+// interface {} 와의 차이는 = 를 빼고말고의 차이다.
+type Address = {
+  /**
+   * 타입 속에서 데이터를 표현한 것 하나하나를 필드라고 부릅니다.
+   * 필드의 구분자로 콤마를 사용합니다.
+   */
+  address1: string,
+  /**
+   * 필드의 구분자로 콜론을 사용할 수도 있습니다.
+   * 콜론과 콤마 중에서 어느것을 사용해도 괜찮습니다.
+   * 줄을 구분했다면 생략해도 됩니다.
+   * 보통은 eslint와 prettier 조합으로 한 방식만 사용하도록 강제합니다.
+   */
+  address2: string,
+};
+
+/**
+ * 문제)
+ * 타입은 객체를 표현할 수 있습니다.
+ * 변수에 유저 타입의 객체를 할당해 보세요.
+ */
+type 유저 = {
+  id: string,
+  성: string,
+  명: string,
+};
+
+const 나 = {
+  id: "문자",
+  성: "문자",
+  명: "문자",
+};
+
+/**
+ * 타입은 extends 키워드로 상속을 할 수 없습니다.
+ * 그 대신 & 연산자로 연결하면 병합을 할 수 있습니다.
+ * 이것을 인터섹션(교집합)이라고 합니다.
+ */
+type 사람 = {
+  키: number,
+};
+
+type 유저1 = {
+  id: string,
+  성: string,
+  명: string,
+};
+
+/**
+ * 문제)
+ * 아래의 변수를 초기화 해 보세요.
+ */
+const test2: 사람 & 유저 = {
+  id: `문자`,
+  성: `문자`,
+  명: `문자`,
+
+  키: 12,
+};
+```
+
+## 제네릭(generics).ts
+
+```jsx
+export {};
+/**
+ * 제네릭(generics)이란?
+ * 호출하는 시점에 타입을 결정하는 기능입니다.
+ * 제네릭 : 호출할때 주는 값으로 타입을 설정하는것. 대충퉁침
+ */
+
+/**
+ * 자바스크립트의 배열은 타입이 다른 요소가 들어있는 배열의 타입도 추론을 합니다.
+ * 변수이름 위에 마우스를 올려서 확인해 보세요.
+ */
+const 숫자배열 = [1, 2, 3];
+const 문자열배열 = ["1", "2", "3"];
+
+/**
+ * 이것은 타입스크립트에서 자바스크립트의 배열을 제네릭으로 선언했기 때문입니다.
+ * 제네릭 함수는 호출하는 시점에 타입을 결정합니다.
+ * 그래서 배열은 아래와 같이 선언할 수도 있습니다.
+ * 제네릭 함수는 타입을 파라미터로 받습니다.
+ * 타입은 꺽쇠로 감싸서 넘깁니다.
+ */
+
+// Array:배열인데 <number>:문자열이다
+// 나중에 결과로 인해 결정되는 타입을 <> 안에 넣는것이다
+// <제네릭> 지금 당장 결정할수가 없어 나중에 결정하기위해
+const 숫자배열1: Array<number> = [1, 2, 3];
+const 숫자배열2: number[] = [1, 2, 3];
+const 문자열배열1: Array<string> = ["1", "2", "3"];
+const 문자열배열2: string[] = ["1", "2", "3"];
+
+/**
+ * 인터페이스도 제네릭으로 선언할 수 있습니다.
+ * 이 인터페이스는 서버의 리스폰스를 표현합니다.
+ */
+
+// <나중에 결정될 타입>
+// T 는 매개변수처럼 쓸수있다. 뭐가들어올지는 모르지만 나중에 결정할게.
+// T=대충퉁침
+interface 서버리스폰스<T> {
+  data: T;
+  code: number;
+}
+
+/**
+ * 타입도 제네릭으로 선언할 수 있습니다.
+ */
+type 서버리스폰스1<T> = {
+  data: T;
+  code: number;
+};
+
+/**
+ * 문제)
+ * 아래 타입의 에러를 고치세요.
+ */
+const 성공: 서버리스폰스<T> = {
+  data: "데이터",
+  code: 200,
+};
+
+// <매개변수> 가 스트링이 들어올때, 뭐가올지 몰라서 선언해놓은 <T> 가 스트링이 된다.
+const 성공1: 서버리스폰스1<number> = {
+  data: "데이터",
+  code: 200,
+};
+
+/**
+ * 제네릭 함수를 선언할 때는 괄호() 앞에 꺽쇠<>를 표기합니다.
+ * 꺽쇠 안에 가상의 타입을 넣습니다. T를 넣는 것이 관례이지만 아무것이나 넣어도 됩니다.
+ * 함수를 호출하는 시점에 괄호() 안으로 들어오는 값의 타입이 T가 됩니다.
+ * 함수를 호출하는 코드 위에 마우스를 올려서 호출하신 시점에 타입이 결정되는 것을 확인해 보세요.
+ */
+
+// 들어오는 값에 따라서, 값이 들어오면 결정되게 하겠다.
+// T 는 number 라는것을 추론해서 반영시켜준다 : 제네릭
+const 뒤집기함수 = <T>(배열: T[]) => {
+  return 배열.reverse();
+};
+console.log(뒤집기함수([1, 2, 3]));
+console.log(뒤집기함수(["1", "2", "3"]));
+
+/**
+ * 제네릭 함수는 extends 키워드로 제약조건을 걸 수 있습니다.
+ * 아래의 제네릭 함수에는 length 라는 프로퍼티를 가진 객체만 들어갈 수 있습니다.
+ *
+ */
+// extends 는 제약조건이다
+// extends 를 삼항연산자처럼 쓴다. 객체를 받기는하는데 { length: number } 가 올때만 허용하겠다는 뜻이다.
+const 갯수세기 = <T extends { length: number }>(객체: T) => {
+  return 객체.length;
+};
+
+console.log(갯수세기("123"));
+console.log(갯수세기([1, 2, 3]));
+console.log(갯수세기(1)); //extends 제약에 의해 비허용
+console.log(갯수세기({ length: 0, 0: 1 })); //extends 제약에 의해 허용
+
+/**
+ * 문자열과 배열은 대표적인 ArrayLike 객체입니다.
+ * ArrayLike 는 length 프로퍼티를 가지는 객체를 가리키는 약속입니다.
+ * 타입스크립트는 자바스크립트 문서에만 존재하던 약속들을 타입으로 명시하고 있습니다.
+ * 타입스크립트에서는 ArrayLike 도 타입이므로 변수처럼 사용할 수 있습니다.
+ */
+const 갯수세기1 = <T>(객체: ArrayLike<T>) => {
+  return 객체.length;
+};
+console.log(갯수세기1("123"));
+console.log(갯수세기1([1, 2, 3]));
+// console.log(갯수세기(1)); 부합
+
+/**
+ * 문제)
+ * { a: string } 라는 프로퍼티를 포함(extends)하는 객체만 허용하는 제네릭 함수<T>를 선언해 보세요.
+ */
+const 함수 = <대충퉁침 extends { a: string }>(객체: 대충퉁침) => {
+  // TODO: 함수 구현
+};
+// const 함수 = <T extends { a : string }>(객체 : T) => {
+//     return 객체;
+// }
+
+함수({ a: "", b: 0 });
+```
+
+## 유니온타입.ts
+
+```jsx
+export {};
+/**
+ * 유니온 타입(union type)은 한번에 2개 이상의 타입을 허용하는 타입입니다.
+ * 타입과 타입은 버티컬 바 | 로 구분합니다.
+ */
+
+/**
+ * 아래의 변수에 적절한 값을 대입해 보세요.
+ */
+// const a: number | string = [];
+const a: number | string = 0;
+// const b: { a: number } | { b: string } = {};
+const b: { a: number } | { b: string } = { b: "r" };
+
+/**
+ * 문제)
+ * 아래의 타입은 사용자의 계정을 표현합니다.
+ * 사용자 타입을 수정해서 에러가 나지 않게 바꾸어 보세요.
+ */
+
+type 사용자 = {
+  id: string,
+  //   역활: "슈퍼" | "어드민" ;
+  역활: "슈퍼" | "어드민" | "게스트",
+};
+
+const 나: 사용자 = {
+  id: "유니크",
+  역활: "게스트",
+};
+```
+
+## 옵셔널(Optional).ts
+
+```jsx
+export {};
+/**
+ * 타입 집합에서 일부 타입을 선택적으로 받을 수 있습니다.
+ * 타입 어노테이션 앞에 ? 를 붙이면 선택사항이 됩니다.
+ * 아래의 타입은 문자열 프로퍼티를 선택적으로 받는 객체를 표현합니다.
+ */
+type A = {
+  숫자: number,
+  문자열: string,
+};
+
+/**
+ * 위 표현은 아래의 표현과 비슷합니다.
+ */
+type A1 = {
+  숫자: number,
+  문자열: string | undefined,
+};
+
+let a: A = { 숫자: 0 };
+a = { 숫자: 0, 문자열: "" };
+a = { 숫자: 0, 문자열: "", v: 0 };
+
+/**
+ * 선택적으로 매개변수를 받는 함수를 표현할 수도 있습니다.
+ * 자스 if 문으로 제약(방어)해줘야했던 것을 타스로 간단하게 표현가능
+ */
+const 함수 = (a: number, b?: string) => {
+  console.log(a, b);
+};
+
+/**
+ * 위 표현은 아래의 표현과 비슷합니다.
+ */
+const 함수1 = (a: number, b: string | undefined) => {
+  console.log(a, b);
+};
+
+// 방어 코드를 줄일수있습니다.
+함수(1);
+함수(1, "");
+
+/**
+ * 문제)
+ * 아래의 더하기 함수에는 b라는 프로퍼티가 필요하지 않습니다.
+ * b라는 프로퍼티를 넘기지 않아도 에러가 나지 않게 바꾸어 보세요.
+ */
+type 매개변수타입 = {
+  a: number,
+  //   b: number;
+  // 물을표를 붙이면 선택적으로 붙일수있다.
+  b?: number,
+};
+
+const 더하기 = (객체: 매개변수타입) => {
+  return 객체.a;
+};
+
+더하기({ a: 0 });
+```
+
+## 타입좁히기.ts
+
+```jsx
+export {};
+
+/**
+ * 변수 하나가 2개이상의 값을 가지는 경우는 아주 흔합니다
+ * 서버에서 데이터를 선택적으로 내려주는 경우가 특히 그렇습니다.
+ * 아래와 같은 코드는 자바스크립트에서 실수하기 좋은 패턴입니다.
+ *
+ * 문제)
+ * 아래의 코드에서 타입스크립트 에러를 없애 보세요.
+ */
+const 함수 = (숫자?: number) => {
+  // narrowing 값을 좁힌다.
+  // 타스는 자스의 식을 모두 narrowing 으로 인정한다
+  if (숫자) {
+    return 숫자 + 1;
+  }
+  // 혹은
+  if (typeof 숫자 === "number") {
+    return 숫자 + 1;
+  }
+  // 혹은
+  if (숫자배열 instanceof Array) {
+    return 숫자배열.length + 1;
+  }
+};
+
+/**
+ * 타입스크립트 컴파일러는
+ * 자바스크립트에서 에러를 막기 위해 사용해 왔던 테크닉을
+ * 모두 Narrowing으로 인정합니다.
+ */
+const 함수1 = (숫자?: number) => {
+  if (typeof 숫자 === "number") {
+    return 숫자 + 1;
+  }
+
+  return 1;
+};
+
+/**
+ * 자바스크립트에서 에러를 막기 위해 사용해 왔던 테크닉을
+ * 모두 Narrowing으로 인정하므로
+ * 검사하고자 하는 값이 객체라면
+ * instanceof 연산자를 이용할 수도 있습니다.
+ */
+const 함수1 = (숫자배열?: number[]) => {
+  if (숫자배열 instanceof Array) {
+    return 숫자배열?.length;
+  }
+
+  return 0;
+};
+```
+
+## 타입단정하기.ts
+
+```jsx
+export {};
+
+/**
+ * 변수 하나의 타입이 2개 이상일 가능성이 있을때,
+ * Narrowing 으로 값을 좁히는 것이 가장 이상적이지만
+ * 개발자의 재량으로 타입을 단정지을 수도 있습니다.
+ * 이것을 Assertion 이라고 합니다.
+ * 특히 타입스크립트로 dom을 다룰 때 유용하게 사용할 수 있습니다.
+ */
+
+/**
+ * 13번 째 줄의 오른쪽에 아래의 키워드를 복사/붙여넣기 해 보세요.
+ *  as HTMLDivElement
+ */
+const root = document.getElementById("#root");
+// root 가 없을수도 있어서 타스는 경고를 준다
+root.innerText = "리액트";
+// 그래서 narrowing
+if (root) {
+  root.innterText = "리액트";
+}
+// 를 쓰거나
+// as HTMLDivElement 를 붙여서 강제한다
+// as HTMLDivElement 는 이 요소가 무조건 HTML 에 있다고 단정하는것 = 에너나면 니책임
+
+/**
+ * 특정 변수가 null이 아님을 단정하기만 한다면 ! 를 사용할 수도 있습니다.
+ * 13번 째 줄의 오른쪽에 ! 를 추가해 보세요.
+ *
+ * Type Assertion은 타입스크립트의 타입 추론을 사용하지 않고 개발자가 직접 정의하기 때문에 지양하고 조건문을 사용하는게 좋다.
+ */
+
+// ! : not null Assertion
+const root1 = document.getElementById("#root")!;
+root1.innerText = "리액트";
+
+```
+
+**as HTMLDivElement** 는 이 요소가 무조건 HTML 에 있다고 단정하는것이다. = 에러나면 니책임 이라는 뜻

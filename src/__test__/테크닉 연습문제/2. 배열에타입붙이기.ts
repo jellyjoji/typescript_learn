@@ -1,4 +1,4 @@
-export {}
+export {};
 
 /**
  * 문제)
@@ -7,27 +7,29 @@ export {}
  */
 
 type Comment = {
-    id: string,
-    content: string
-}
+  id: string;
+  content: string;
+};
 
 interface User {
-    id: string;
-    name: string;
-    comment: Comment;
+  id: string;
+  name: string;
+  comment: Comment[];
+  //   아래 comment 가 []배열 안에 들어있으므로 []배열이 들어가야한다
+  //   comment: Array<Comment>;
 }
 
 const 사용자: User = {
-    id: '아이디',
-    name: '이름',
-    comment: [
-        { 
-            id: '1',
-            content: '나나나'
-        },
-        { 
-            id: '2',
-            content: '나나나'
-        }
-    ]
-}
+  id: "아이디",
+  name: "이름",
+  comment: [
+    {
+      id: "1",
+      content: "나나나",
+    },
+    {
+      id: "2",
+      content: "나나나",
+    },
+  ],
+};

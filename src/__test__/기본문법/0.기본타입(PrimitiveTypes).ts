@@ -1,10 +1,12 @@
-export {}
+export {};
+// 로컬 모듈
+
 /**
  * 타입(Type)이란?
  * 데이터를 읽고 쓰는 방식에 이름을 붙인 것입니다.
  * 언어에 타입이 있으면 컴퓨터의 지원을 더 많이 받을 수 있습니다.
  * 타입스크립트의 기본 타입은 아래와 같습니다.
- * 
+ *
  * number: 숫자 타입
  * string: 문자열 타입
  * boolean: 불리언 타입
@@ -13,8 +15,6 @@ export {}
  * symbol: 심볼 타입
  * bigint: 큰 정수 타입
  */
-
-
 
 /**
  * 0. 타입 추론
@@ -25,57 +25,50 @@ export {}
  * 개발자는 CMD 키나 ctrl 키를 누른 상태로 변수 위에 마우스를 올려서 컴파일러가 추론한 결과물을 이용할 수 있습니다.
  */
 
-let 등호를_기준으로_왼쪽을_추론하는_예 = 0
-
-
+let 등호를_기준으로_왼쪽을_추론하는_예 = 0;
 
 /**
  * 1. 타입 어노테이션(Type Annotation)
- * 타입스크립트는 타입을 최선을 다 해서 추론하지만, 
- * 그것이 어려울 때는 사람이 개입을 해서 힌트를 주어야 합니다. 
+ * Annotation 은 힌트라는 뜻이다. 타스는 추론보다 힌트를 우선시한다
+ * 타입스크립트는 타입을 최선을 다 해서 추론하지만,
+ * 그것이 어려울 때는 사람이 개입을 해서 힌트를 주어야 합니다.
  * 타입 어노테이션을 사용하면 타입스크립트 컴파일러에게 타입 힌트를 줄 수 있습니다.
  * 변수나 함수 왼쪽에 : 를 붙여서 사용합니다.
  */
-let 숫자에_타입어노테이션: number = 0
-
-
+let 숫자에_타입어노테이션: number = 0;
 
 /**
  * 2. number
  * 자바스크립트에서 사용하는 모든 부동소숫점 값을 표현합니다.
  * 문제) unknown 대신에 적절한 타입 어노테이션을 붙여서 컴파일러에게 힌트를 줘 보세요.
  * IDE의 지원을 받으면 더 쉽게 입력할 수 있습니다.
-*/  
-let 정수: unknown = 6
-let 부동소숫점: unknown = 3.14
-let 무한: unknown = Infinity
-let nan: unknown = NaN
-let 생성자함수숫자: unknown = new Number(0).valueOf()
-
-
+ */
+let 정수: number = 6;
+let 부동소숫점: number = 3.14;
+let 무한: number = Infinity;
+let nan: number = NaN;
+let 생성자함수숫자: number = new Number(0).valueOf();
 
 /**
  * 3. string
  * 자바스크립트에서 사용하는 모든 문자열 값을 표현합니다.
  * 문제) unknown 대신에 적절한 타입 어노테이션을 붙여서 컴파일러에게 힌트를 줘 보세요.
  * IDE의 지원을 받으면 더 쉽게 입력할 수 있습니다.
-*/  
-let 작은따옴표문자열: unknown = '작은거'
-let 큰따옴표문자열: unknown = "큰거"
-let 템플릿문자열: unknown = `이건 ${큰따옴표문자열}.`
-let 생성자함수문자열: unknown = new String('생성자함수').valueOf()
-
-
+ */
+let 작은따옴표문자열: string = "작은거";
+let 큰따옴표문자열: string = "큰거";
+let 템플릿문자열: string = `이건 ${큰따옴표문자열}.`;
+let 생성자함수문자열: string = new String("생성자함수").valueOf();
 
 /**
  * 4. boolean
  * 참(true) 과 거짓(false)을 표현합니다.
  * 자바스크립트에서 사용했던 Falsy 와 Trusy를 대체합니다.
- */ 
- 
-/** 문제) 
+ */
+
+/** 문제)
  * unknown 대신에 적절한 타입 어노테이션을 붙여서 컴파일러에게 힌트를 줘 보세요.
  * IDE의 지원을 받으면 더 쉽게 입력할 수 있습니다.
-*/
-let 참: unknown = true
-let 거짓: unknown = false
+ */
+let 참: boolean = true;
+let 거짓: boolean = false;
